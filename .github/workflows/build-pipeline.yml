@@ -26,7 +26,6 @@ jobs:
         run: npm run lint:css
       - name: "Hello"
         run: echo ${{secrets.PASSWORD}}
-        run: echo $SECRET
         env:
           RESPONSE: Hey does this work
           SECRET: secrets.PASSWORD 

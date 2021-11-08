@@ -27,11 +27,11 @@ jobs:
       - name: "Hello"
         run: echo ${{secrets.PASSWORD}}
         env:
-          SECRET: secrets.PASSWORD 
+          SECRET: secrets.PASSWORD
       
   docker:
     needs: build
-    runs-on: ubuntu-last
+    runs-on: ubuntu-latest
     steps:
       - name: docker login
         uses: docker/login-action@v1
@@ -45,8 +45,10 @@ jobs:
       - name: save docker images
         uses: docker/build-push-action@v2
         with:
+          context: .
           push: true
           tags: user/app:latest
+        
 
   deploy:
     needs: build

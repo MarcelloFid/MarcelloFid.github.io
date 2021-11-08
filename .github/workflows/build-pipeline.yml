@@ -27,7 +27,6 @@ jobs:
       - name: "Hello"
         run: echo ${{secrets.PASSWORD}}
         env:
-          RESPONSE: Hey does this work
           SECRET: secrets.PASSWORD 
       
   docker:

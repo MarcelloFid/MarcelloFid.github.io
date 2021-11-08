@@ -27,7 +27,7 @@ jobs:
       - name: "Hello"
         run: echo $RESPONSE
         env:
-          RESPONSE: Hey
+          RESPONSE: Hey does this work
 
   deploy:
     needs: build

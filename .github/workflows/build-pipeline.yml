@@ -18,6 +18,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
       # Step 3 - Add tests and linting here
+      - name: Check the code and setup node.js
+        run: npm run test
+      - name: Run typescript lint and format check
+        run: npm run lint:ts
+      - name: Run styles lint and format check
+        run: npm run lint:css
+      - name: "Hello"
+        run: echo $RESPONSE
+        env:
+          RESPONSE: Hey
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -30,3 +41,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
       # Step 2: Add deploy to Github pages here! Hot tip - The solution is in the Readme
+      - name: Build
+        run: npm run build
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: dist

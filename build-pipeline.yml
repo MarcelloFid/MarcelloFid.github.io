@@ -19,7 +19,7 @@ jobs:
         run: npm ci
       # Step 3 - Add tests and linting here
       - name: Check the code and setup node.js
-        run: npm run test
+        run: npm test
       - name: Run typescript lint and format check
         run: npm run lint:ts
       - name: Run styles lint and format check
@@ -27,7 +27,26 @@ jobs:
       - name: "Hello"
         run: echo ${{secrets.PASSWORD}}
         env:
-          RESPONSE: Hey does this work
+          SECRET: secrets.PASSWORD 
+      
+  docker:
+    needs: build
+    runs-on: ubuntu-last
+    steps:
+      - name: docker login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: docker image
+        uses: docker/metadata-action@v3
+        with:
+          images: marcellofid/github-workshop
+      - name: save docker images
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: user/app:latest
 
   deploy:
     needs: build
